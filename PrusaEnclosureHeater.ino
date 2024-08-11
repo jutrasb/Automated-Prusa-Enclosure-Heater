@@ -25,7 +25,7 @@ V1.5
 #include <Servo.h>
 #include <avr/wdt.h>
 
-// Include configuartion file.
+// Include configuration file.
 // Remember to rename (see above)!
 #include "configuration.h"
 
