@@ -23,12 +23,11 @@ V1.5
 #include <DallasTemperature.h>
 #include <OneWire.h>
 #include <Servo.h>
-#include <Wire.h>
 #include <avr/wdt.h>
 
 // Include configuartion file.
 // Remember to rename (see above)!
-#include <configuration.h>
+#include "configuration.h"
 
 // Declaration of variables
 // Do not set values here, they are set in configuration.h
@@ -71,21 +70,18 @@ bool closeServo = true;
 bool updateTarget = false;
 
 // Timing related variables
-#define TEMPERATURE_DELAY 100  // get Temperature every X second
+#define TEMPERATURE_DELAY 100  // Milliseconds
 uint32_t previousMillis_temp = 0;
 uint32_t previousMillis_serial = 0;
 
 // Parameters of display
-#define i2c_Address 0x3c
 #define SCREEN_WIDTH 128  // OLED display width, in pixels
 #define SCREEN_HEIGHT 64  // OLED display height, in pixels
-#define OLED_RESET -1     //   QT-PY / XIAO
 Adafruit_SH1106G display =
-    Adafruit_SH1106G(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+    Adafruit_SH1106G(SCREEN_WIDTH, SCREEN_HEIGHT, SPI_MOSI_PIN, SPI_SCLK_PIN, SPI_DC_PIN, SPI_RES_PIN, SPI_CS_PIN);
 
 // Parameters of thermosensors
-#define ONE_WIRE_BUS 5          // Pin used for temp sensors
-OneWire oneWire(ONE_WIRE_BUS);  // Setup a oneWire instance
+OneWire oneWire(ONE_WIRE_BUS_PIN);  // Setup a oneWire instance
 DallasTemperature sensors(&oneWire);
 
 // OneWire device addresses of the thermometers as configured in configuration.h
